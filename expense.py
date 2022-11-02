@@ -127,14 +127,13 @@ def compute_status(*args):
         for involved in expense.get('involved_users'):
             current_status = status.get(involved) 
             if current_status is None:
-                status[involved] = { expense['spender']: {"amount": int(expense['amount']) / (len(expense['involved_users']) + 1), "paid": False} }
+                status[involved] = { expense['spender']: {"amount": float(expense['amount']) / (len(expense['involved_users']) + 1), "paid": False} }
             else:
                 debt = current_status.get(expense['spender'])
-                print(debt)
                 if debt is None:
-                    current_status[expense.spender] = {"amount": int(expense['amount']) / (len(expense['involved_users']) + 1), "paid" : False}
+                    current_status[expense.spender] = {"amount": float(expense['amount']) / (len(expense['involved_users']) + 1), "paid" : False}
                 else:
-                    debt['amount'] += int(expense['amount']) / (len(expense['involved_users']) + 1)
+                    debt['amount'] += float(expense['amount']) / (len(expense['involved_users']) + 1)
     
     
     status = balance_status(status)
